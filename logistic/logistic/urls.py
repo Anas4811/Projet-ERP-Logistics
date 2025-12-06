@@ -15,8 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.shortcuts import redirect
+
+def api_redirect(request):
+    """Redirect root URL to API."""
+    return redirect('/api/order-fulfillment/')
 
 urlpatterns = [
+    path("", api_redirect, name="home"),
     path("admin/", admin.site.urls),
+    path("api/order-fulfillment/", include("order_fulfillment.urls")),
 ]
