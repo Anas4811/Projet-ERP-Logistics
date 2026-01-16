@@ -38,6 +38,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "users",
+    "products",
+    "warehouse",
+    "authentication",
+    "vendor_management",
+    "gate_checkin",
+    "inventory",
+    "asn_shipment",
+    "achats",
     "order_fulfillment",
 ]
 
