@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="cards">
+    <div class="card">
+      <div class="muted">Warehouses</div>
+      <div style="font-size:24px; font-weight:700;">{{ counts.warehouses }}</div>
+    </div>
+    <div class="card">
+      <div class="muted">Bins</div>
+      <div style="font-size:24px; font-weight:700;">{{ counts.bins }}</div>
+    </div>
+    <div class="card">
+      <div class="muted">Products</div>
+      <div style="font-size:24px; font-weight:700;">{{ counts.products }}</div>
+    </div>
+    <div class="card">
+      <div class="muted">Stock Items</div>
+      <div style="font-size:24px; font-weight:700;">{{ counts.stock_items }}</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;" class="card">
+    <div style="font-weight:700; margin-bottom: 8px;">Stock per Warehouse</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Warehouse</th>
+          <th>Total Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in stock_per_warehouse %}
+          <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.total_qty }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="2" class="muted">No stock yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
