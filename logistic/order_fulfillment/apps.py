@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class OrderFulfillmentConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'order_fulfillment'
+    verbose_name = 'Order Fulfillment & Distribution'
