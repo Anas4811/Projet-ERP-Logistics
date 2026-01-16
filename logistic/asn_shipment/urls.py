@@ -1,9 +1,10 @@
 from django.urls import path
-from . import views
+from . import views, api_views
 
 app_name = 'asn_shipment'
 
-urlpatterns = [
+# Web interface URLs
+web_urlpatterns = [
     # ASN management
     path('asns/', views.ASNListView.as_view(), name='asn_list'),
     path('asns/create/', views.ASNCreateView.as_view(), name='asn_create'),
@@ -28,3 +29,12 @@ urlpatterns = [
     path('reports/expected-arrivals/', views.ExpectedArrivalsReportView.as_view(), name='expected_arrivals_report'),
     path('reports/delivery-performance/', views.DeliveryPerformanceReportView.as_view(), name='delivery_performance_report'),
 ]
+
+# API URLs
+api_urlpatterns = [
+    path('api/reports/expected-arrivals/', api_views.expected_arrivals_report, name='api-expected-arrivals'),
+    path('api/reports/delivery-performance/', api_views.delivery_performance_report, name='api-delivery-performance'),
+    path('api/dashboard/', api_views.dashboard_stats, name='api-dashboard'),
+]
+
+urlpatterns = web_urlpatterns + api_urlpatterns

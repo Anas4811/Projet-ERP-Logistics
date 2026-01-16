@@ -1,9 +1,10 @@
 from django.urls import path
-from . import views
+from . import views, api_views
 
 app_name = 'vendor_management'
 
-urlpatterns = [
+# Web interface URLs
+web_urlpatterns = [
     # Vendor management
     path('vendors/', views.VendorListView.as_view(), name='vendor_list'),
     path('vendors/create/', views.VendorCreateView.as_view(), name='vendor_create'),
@@ -26,3 +27,12 @@ urlpatterns = [
     path('reports/vendor-performance/', views.VendorPerformanceReportView.as_view(), name='vendor_performance_report'),
     path('reports/po-status/', views.POStatusReportView.as_view(), name='po_status_report'),
 ]
+
+# API URLs
+api_urlpatterns = [
+    path('api/reports/vendor-performance/', api_views.vendor_performance_report, name='api-vendor-performance'),
+    path('api/reports/po-status/', api_views.po_status_report, name='api-po-status'),
+    path('api/dashboard/', api_views.dashboard_stats, name='api-dashboard'),
+]
+
+urlpatterns = web_urlpatterns + api_urlpatterns

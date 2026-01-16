@@ -1,9 +1,10 @@
 from django.urls import path
-from . import views
+from . import views, api_views
 
 app_name = 'gate_checkin'
 
-urlpatterns = [
+# Web interface URLs
+web_urlpatterns = [
     # Gate queue management
     path('queue/', views.GateQueueListView.as_view(), name='queue_list'),
     path('queue/create/', views.GateQueueCreateView.as_view(), name='queue_create'),
@@ -28,8 +29,20 @@ urlpatterns = [
     path('dashboard/', views.GateDashboardView.as_view(), name='dashboard'),
     path('reports/queue-performance/', views.QueuePerformanceReportView.as_view(), name='queue_performance_report'),
     path('reports/daily-activity/', views.DailyActivityReportView.as_view(), name='daily_activity_report'),
-
-    # API endpoints for real-time updates
-    path('api/queue-status/', views.QueueStatusAPIView.as_view(), name='api_queue_status'),
-    path('api/queue-position/<int:pk>/', views.QueuePositionAPIView.as_view(), name='api_queue_position'),
 ]
+
+# API URLs
+api_urlpatterns = [
+    # Real-time status endpoints
+    path('api/dashboard/', api_views.dashboard, name='api-dashboard'),
+    path('api/queue-status/', api_views.queue_status, name='api-queue-status'),
+    path('api/queue-position/<int:pk>/', api_views.queue_position, name='api-queue-position'),
+    path('api/reports/performance/', api_views.performance_report, name='api-performance'),
+    path('api/reports/daily-activity/', api_views.daily_activity_report, name='api-daily-activity'),
+
+    # Bulk operations
+    path('api/queue/<int:queue_id>/bulk-inspections/', api_views.bulk_create_inspections, name='api-bulk-inspections'),
+    path('api/queue/<int:queue_id>/bulk-documents/', api_views.bulk_verify_documents, name='api-bulk-documents'),
+]
+
+urlpatterns = web_urlpatterns + api_urlpatterns
