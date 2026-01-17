@@ -1,4 +1,7 @@
 venv/
-db.sqlite3
 .env
 __pycache__/
+*.pyc
+db.sqlite3
+*.sqlite3
+logistic/db.sqlite3
